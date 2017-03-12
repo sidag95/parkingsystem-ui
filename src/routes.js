@@ -8,10 +8,10 @@ import AppContainer from './app'
 
 export const history = hashHistory
 
-export default function root() {
+export default function Root() {
     return (
         <Router history={hashHistory}>
-            <Route path='/' component={AppContainer}>
+            <Route path="/" component={AppContainer}>
                 <Route name='parking' path='parking' component={ParkingList} />
                 <Route name='user' path='user' >
                     <IndexRoute component={UserLogin} />

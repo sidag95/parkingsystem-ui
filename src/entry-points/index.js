@@ -1,8 +1,8 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {Provider} from 'react-redux'
-import App from '../app'
 
-const NextApp = require('../routes').default
+import AppContainer from '../app'
 
-render(<NextApp />, document.getElementById('root'))
+// const NextApp = require('../routes').default
+
+render(<AppContainer />, document.getElementById('root'))

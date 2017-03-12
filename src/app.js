@@ -1,11 +1,9 @@
 import React from 'react'
 
-export default class App extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>Hello World</h1>
-            </div>
-        )
-    }
-} 
+import ParkingList from './containers/parking-list'
+
+const App = () => (
+    <ParkingList />
+)
+
+export default App
