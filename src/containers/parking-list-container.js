@@ -6,9 +6,11 @@ import UserDetails from '../containers/user/user-details'
 
 import {getAjax$} from '../utils/api'
 
+import ParkingList from '../components/parking/parking-list'
+
 const POLL_FREQUENCY = 20*1000
  
-class ParkingList extends React.Component {
+class ParkingListContainer extends React.Component {
     constructor(props) {
         super(props)
 
@@ -24,7 +26,7 @@ class ParkingList extends React.Component {
     }
 
     handlePolling () {
-        const hello = () =>  getAjax$('http://localhost:8081/api/parking')
+        const hello = () =>  getAjax$('https://parkingsystem-api.herokuapp.com/api/parking')
         .then((response) => {
             this.setState({
                 parkings: response
@@ -32,23 +34,15 @@ class ParkingList extends React.Component {
             setTimeout(hello, POLL_FREQUENCY)
             return response
         })
+        .catch((err) => {console.log(err)})
 
         hello()
     }
 
     render() {
-        console.log(this.state)
-
-    const data = R.reverse(R.sortBy(R.prop('_id'), this.state.parkings)).map((p) => {
-        console.log(p)
-        return <div><span>Hi</span><span>{p.name}</span></div>
-    })
         return (
-            <div>
-            Hello World
-            {data}
-            </div>
+            <ParkingList parkings={this.state.parkings} />
         )
     }
 } 
-export default ParkingList
+export default ParkingListContainer

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import ParkingList from './containers/parking-list'
+import ParkingListContainer from './containers/parking-list-container'
 
 const App = () => (
-    <ParkingList />
+    <ParkingListContainer />
 )
 
 export default App
