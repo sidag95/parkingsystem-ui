@@ -1,6 +1,8 @@
 import React from 'react'
 import R from 'ramda'
 
+import {Overlay, Button, Collapse} from '@blueprintjs/core'
+
 class ParkingLot extends React.Component {
     constructor(props) {
         super(props)
@@ -13,21 +15,31 @@ class ParkingLot extends React.Component {
         }
 
         this.handleParkingClick = this.handleParkingClick.bind(this)
+        this.handleClearState = this.handleClearState.bind(this)
     }
 
     handleParkingClick(e) {
-        console.log(e.currentTarget.dataset.id)
-        const parkingId = e.currentTarget.dataset.id
-        const parkingData = this.props.data.find((p) => p._id === parkingId)
-        if(data) {
+        const parkingId = parseInt(e.currentTarget.dataset.id)
+        const parkingData = this.props.parkings.find((p) => p._id === parkingId)
+        if(parkingData) {
             this.setState({
-                parking: {id: parkingId, data: parkingData}
+                parking: {...this.state.parking.expandedParking, id: parkingId, data: parkingData}
             })
         }
     }
 
+    handleClearState() {
+        this.setState({
+            parking: {
+                id: '',
+                data: ''
+            }
+        })
+    }
+
     render() {
-        console.log(this.props.parkings)
+        console.log(this.state.parking)
+        const overlayContent = <div><Button text="Close"  onClick={this.handleClearState} /><h1>Hello World</h1></div>
         const data = R.reverse(R.sortBy(R.prop('_id'), this.props.parkings)).map((p) => {
             return <div key={p._id} >
                         <button data-id={p._id} onClick={this.handleParkingClick} >
@@ -39,7 +51,12 @@ class ParkingLot extends React.Component {
                     </div>
         })
         return (
-            <div>{data}</div>
+            <div className="container" >
+                <Overlay isOpen={this.state.parking.id} isClose={!this.state.parking.id} >
+                    {overlayContent}
+                </Overlay>
+                <div>{data}</div>
+            </div>
         )
     }
 }
