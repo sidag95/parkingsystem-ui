@@ -3,7 +3,9 @@ import R from 'ramda'
 
 import {Overlay, Button, Collapse} from '@blueprintjs/core'
 
-class ParkingLot extends React.Component {
+import ParkingLot from './parking-lot'
+
+class ParkingList extends React.Component {
     constructor(props) {
         super(props)
 
@@ -41,14 +43,7 @@ class ParkingLot extends React.Component {
         console.log(this.state.parking)
         const overlayContent = <div><Button text="Close"  onClick={this.handleClearState} /><h1>Hello World</h1></div>
         const data = R.reverse(R.sortBy(R.prop('_id'), this.props.parkings)).map((p) => {
-            return <div key={p._id} >
-                        <button data-id={p._id} onClick={this.handleParkingClick} >
-                            <span>{p._id}</span>
-                            <span>{p.name}</span>
-                            {p.spaces.map((s) => {
-                                return <div key={`${p._id} ${s._id}`} >{s.status}</div>})}
-                        </button>
-                    </div>
+            return (<ParkingLot key={p._id} lot={p} handleParkingClick={this.handleParkingClick} />)
         })
         return (
             <div className="container" >
@@ -61,4 +56,4 @@ class ParkingLot extends React.Component {
     }
 }
 
-export default ParkingLot
+export default ParkingList
