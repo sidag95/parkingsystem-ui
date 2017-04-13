@@ -4,6 +4,7 @@ import R from 'ramda'
 import {Overlay, Button, Collapse} from '@blueprintjs/core'
 
 import ParkingLot from './parking-lot'
+import Navigation from './navigate'
 
 class ParkingList extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class ParkingList extends React.Component {
         const parkingData = this.props.parkings.find((p) => p._id === parkingId)
         if(parkingData) {
             this.setState({
-                parking: {...this.state.parking.expandedParking, id: parkingId, data: parkingData}
+                parking: {...this.state.parking, id: parkingId, data: parkingData}
             })
         }
     }
@@ -40,8 +41,7 @@ class ParkingList extends React.Component {
     }
 
     render() {
-        console.log(this.state.parking)
-        const overlayContent = <div><Button text="Close"  onClick={this.handleClearState} /><h1>Hello World</h1></div>
+        const overlayContent = <Navigation parking={this.state.parking.data ? this.state.parking.data : {}} onClose={this.handleClearState} />
         const data = R.reverse(R.sortBy(R.prop('_id'), this.props.parkings)).map((p) => {
             return (<ParkingLot key={p._id} lot={p} handleParkingClick={this.handleParkingClick} />)
         })

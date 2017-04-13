@@ -8,7 +8,7 @@ import {getAjax$} from '../utils/api'
 
 import ParkingList from '../components/parking/parking-list'
 
-const POLL_FREQUENCY = 20*1000
+const POLL_FREQUENCY = 5*1000
  
 class ParkingListContainer extends React.Component {
     constructor(props) {
