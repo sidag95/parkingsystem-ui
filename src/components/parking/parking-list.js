@@ -49,7 +49,14 @@ class ParkingList extends React.Component {
             />
         )
         const data = R.reverse(R.sortBy(R.prop('_id'), this.props.parkings)).map((p) => {
-            return (<ParkingLot key={p._id} lot={p} handleParkingClick={this.handleParkingClick} />)
+            return (
+                <ParkingLot 
+                    key={p._id} 
+                    lot={p} 
+                    googleMapsApiScriptLoaded= {this.props.googleMapsApiScriptLoaded}
+                    handleParkingClick={this.handleParkingClick} 
+                />
+            )
         })
         return (
             <div className="container" >

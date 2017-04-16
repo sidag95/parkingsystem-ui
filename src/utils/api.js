@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+var config = {
+  headers: {'Access-Control-Allow-Origin': '*'}
+};
 
 export function getAjax$(url) {
     return axios.get(url)
