@@ -10,6 +10,7 @@ import Navbar from '../components/navbar'
 import ParkingList from '../components/parking/parking-list'
 
 const POLL_FREQUENCY = 5*1000
+const API_KEY = 'AIzaSyCcLF4KXS3cw0gZqiWvhpCyBXxKTBvybN8'
  
 class ParkingListContainer extends React.Component {
     constructor(props) {
@@ -17,13 +18,33 @@ class ParkingListContainer extends React.Component {
 
         this.state = {
             parkings: [],
+            googleMapsApiScriptLoaded : document.getElementById('googleMapsApiScript') ? true : false,
         }
 
         this.handlePolling = this.handlePolling.bind(this)
+        this.addGoogleMapsApi = this.addGoogleMapsApi.bind(this)
     }
 
     componentDidMount() {
         this.handlePolling()
+        this.addGoogleMapsApi()
+    }
+
+    addGoogleMapsApi() {
+        if (!document.getElementById('googleMapsApiScript')) {
+            const googleMapsApiScript = document.createElement('script');
+            googleMapsApiScript.id = 'googleMapsApiScript'
+            googleMapsApiScript.setAttribute('src',`https://maps.googleapis.com/maps/api/js?key=${API_KEY}`);
+            googleMapsApiScript.async = false
+            googleMapsApiScript.defer = false
+            document.head.appendChild(googleMapsApiScript)
+            googleMapsApiScript.addEventListener('load', function () {
+                this.setState({
+                    googleMapsApiScriptLoaded: true
+                })
+            }.bind(this))
+        }
+        return ''
     }
 
     handlePolling () {
@@ -46,7 +67,7 @@ class ParkingListContainer extends React.Component {
                 <Navbar />
                 <div className="app-container" >
                     <div className="greet-user"> Welcome "USER". Below is the list of all the parking lots in your vicinity. Click any one to have a detailed view.</div>
-                    <ParkingList parkings={this.state.parkings} />
+                    <ParkingList parkings={this.state.parkings} googleMapsApiScriptLoaded={this.state.googleMapsApiScriptLoaded} />
                 </div>
             </div>
         )

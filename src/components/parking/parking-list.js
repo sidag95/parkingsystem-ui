@@ -41,7 +41,13 @@ class ParkingList extends React.Component {
     }
 
     render() {
-        const overlayContent = <Navigation parking={this.state.parking.data ? this.state.parking.data : {}} onClose={this.handleClearState} />
+        const overlayContent = (
+            <Navigation 
+                parking={this.state.parking.data ? this.state.parking.data : {}} 
+                googleMapsApiScriptLoaded = {this.props.googleMapsApiScriptLoaded} 
+                onClose={this.handleClearState} 
+            />
+        )
         const data = R.reverse(R.sortBy(R.prop('_id'), this.props.parkings)).map((p) => {
             return (<ParkingLot key={p._id} lot={p} handleParkingClick={this.handleParkingClick} />)
         })
