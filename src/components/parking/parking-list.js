@@ -50,7 +50,7 @@ class ParkingList extends React.Component {
                 <Overlay isOpen={this.state.parking.id} isClose={!this.state.parking.id} >
                     {overlayContent}
                 </Overlay>
-                <div>{data}</div>
+                <div className="parking-lot-overview-container" >{data}</div>
             </div>
         )
     }

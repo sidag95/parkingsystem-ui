@@ -6,6 +6,7 @@ import UserDetails from '../containers/user/user-details'
 
 import {getAjax$} from '../utils/api'
 
+import Navbar from '../components/navbar'
 import ParkingList from '../components/parking/parking-list'
 
 const POLL_FREQUENCY = 5*1000
@@ -41,7 +42,13 @@ class ParkingListContainer extends React.Component {
 
     render() {
         return (
-            <ParkingList parkings={this.state.parkings} />
+            <div className="app">
+                <Navbar />
+                <div className="app-container" >
+                    <div className="greet-user"> Welcome "USER". Below is the list of all the parking lots in your vicinity. Click any one to have a detailed view.</div>
+                    <ParkingList parkings={this.state.parkings} />
+                </div>
+            </div>
         )
     }
 } 

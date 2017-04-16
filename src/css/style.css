@@ -1,3 +1,11 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+}
 .pt-overlay-content {
     z-index: 30;
     width: 100%;
@@ -30,4 +38,61 @@
 .closeMap {
     height: 30px;
     margin: auto;
+}
+
+.parking-lot {
+    width: 100%;
+}
+
+.parking-lot .parking-header {
+    font-size: 30px;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #323232;
+    height: 60px;
+}
+
+.navbar-container {
+    padding: 2px; 
+    height: 100%;   
+}
+
+.navbar-header{
+    color: white;
+    margin: 10px auto;
+    font-size: 2em;
+    text-align: center;
+}
+
+.app-container {
+    padding: 20px;
+    width: 100%;
+    margin: auto;
+}
+
+.greet-user { 
+    margin: 20px 0;
+}
+
+.parking-lot-overview-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.parking-lot-overview {
+    width: 50%;
+    padding: 0;
+}
+
+.parking-lot-overview .parking-header {
+    background-color: #c3c3c3;
+    padding: 10px;
+}
+
+.parking-lot-overview .parking-body {
+    padding: 20px;
 }
