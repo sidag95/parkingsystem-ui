@@ -11,7 +11,7 @@ import ParkingList from '../components/parking/parking-list'
 
 const POLL_FREQUENCY = 5*1000
 const API_KEY = 'AIzaSyCcLF4KXS3cw0gZqiWvhpCyBXxKTBvybN8'
- 
+
 class ParkingListContainer extends React.Component {
     constructor(props) {
         super(props)
@@ -48,17 +48,35 @@ class ParkingListContainer extends React.Component {
     }
 
     handlePolling () {
-        const hello = () =>  getAjax$('https://parkingsystem-api.herokuapp.com/api/parking')
-        .then((response) => {
-            this.setState({
-                parkings: response
-            })
-            setTimeout(hello, POLL_FREQUENCY)
-            return response
-        })
-        .catch((err) => {console.log(err)})
+      if (!!window.EventSource) {
+        var source = new EventSource('http://localhost:3000/api/parking');
+        source.addEventListener('message', function(e) {
+          console.log(JSON.parse(e.data))
+        }, false)
 
-        hello()
+        source.addEventListener('open', function(e) {
+          console.log("Connection was opened")
+        }, false)
+
+        source.addEventListener('error', function(e) {
+          if (e.readyState == EventSource.CLOSED) {
+            console.log("Connection was closed")
+          }
+        }, false)
+      } else {
+        const poll = () =>  getAjax$('https://parkingsystem-api.herokuapp.com/api/parking')
+          .then((response) => {
+            this.setState({
+              parkings: response
+            })
+            setTimeout(poll, POLL_FREQUENCY)
+            return response
+          })
+          .catch((err) => {console.log(err)})
+
+        poll()
+      }
+
     }
 
     render() {
@@ -72,5 +90,5 @@ class ParkingListContainer extends React.Component {
             </div>
         )
     }
-} 
+}
 export default ParkingListContainer
