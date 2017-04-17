@@ -48,11 +48,13 @@ class ParkingListContainer extends React.Component {
     }
 
     handlePolling () {
-      if (!!window.EventSource) {
+      if (window.EventSource) {
         var source = new EventSource('http://localhost:3000/api/parking');
         source.addEventListener('message', function(e) {
-          console.log(JSON.parse(e.data))
-        }, false)
+          this.setState({
+            parkings: JSON.parse(e.data)
+          })
+        }.bind(this), false)
 
         source.addEventListener('open', function(e) {
           console.log("Connection was opened")
