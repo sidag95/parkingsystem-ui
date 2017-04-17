@@ -49,7 +49,7 @@ class ParkingListContainer extends React.Component {
 
     handlePolling () {
       if (window.EventSource) {
-        var source = new EventSource('http://localhost:3000/api/parking');
+        var source = new EventSource('https://parkingsystem-api.herokuapp.com/api/parking');
         source.addEventListener('message', function(e) {
           this.setState({
             parkings: JSON.parse(e.data)
