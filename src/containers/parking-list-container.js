@@ -1,8 +1,4 @@
 import React from 'react'
-import R from 'ramda'
-
-import UserLogin from '../containers/user/user-login'
-import UserDetails from '../containers/user/user-details'
 
 import {getAjax$} from '../utils/api'
 
@@ -17,12 +13,17 @@ class ParkingListContainer extends React.Component {
         super(props)
 
         this.state = {
+            userDetails: {
+              userId: "",
+              name: "",
+            },
             parkings: [],
             googleMapsApiScriptLoaded : document.getElementById('googleMapsApiScript') ? true : false,
         }
 
-        this.handlePolling = this.handlePolling.bind(this)
-        this.addGoogleMapsApi = this.addGoogleMapsApi.bind(this)
+      this.handlePolling = this.handlePolling.bind(this)
+      this.handleParkingBooking = this.handleParkingBooking.bind(this)
+      this.addGoogleMapsApi = this.addGoogleMapsApi.bind(this)
     }
 
     componentDidMount() {
@@ -45,6 +46,21 @@ class ParkingListContainer extends React.Component {
             }.bind(this))
         }
         return ''
+    }
+
+    handleUserLogin () {
+
+    }
+
+    handleUserSignUp () {
+
+    }
+
+    handleParkingBooking (e) {
+      const parkingData = e.currentTarget.dataset.id.split('-')
+      const lotId = parkingData[0]
+      const spaceId = parkingData[1]
+      console.log(parkingData, lotId, spaceId)
     }
 
     handlePolling () {
@@ -87,7 +103,11 @@ class ParkingListContainer extends React.Component {
                 <Navbar />
                 <div className="app-container" >
                     <div className="greet-user"> Welcome "USER". Below is the list of all the parking lots in your vicinity. Click any one to have a detailed view.</div>
-                    <ParkingList parkings={this.state.parkings} googleMapsApiScriptLoaded={this.state.googleMapsApiScriptLoaded} />
+                    <ParkingList
+                      handleParkingBooking={this.handleParkingBooking}
+                      parkings={this.state.parkings}
+                      googleMapsApiScriptLoaded={this.state.googleMapsApiScriptLoaded}
+                    />
                 </div>
             </div>
         )

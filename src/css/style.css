@@ -142,6 +142,10 @@ html, body {
   height:100%;
 }
 
+.parking-space-grid {
+  cursor: pointer;
+}
+
 @media screen and (min-width: 768px) {
     .parking-lot-overview {
         width: 50%;

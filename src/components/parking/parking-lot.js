@@ -60,7 +60,6 @@ class ParkingLotOverview extends React.Component {
   }
 
   handleNavigationClick (e) {
-    console.log("Hekllp")
     const parkingId = parseInt(e.currentTarget.dataset.id)
     this.props.handleParkingClick(parkingId)
   }
@@ -75,6 +74,7 @@ class ParkingLotOverview extends React.Component {
           <ParkingLotLayout
             parkingLot = {this.props.lot}
             onNavigationClick = {this.handleNavigationClick}
+            handleParkingBooking={this.props.handleParkingBooking}
             onClose = {this.toggleLayoutVisible}
           />
         </Overlay>

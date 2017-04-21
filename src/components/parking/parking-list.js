@@ -54,6 +54,7 @@ class ParkingList extends React.Component {
                     lot={p}
                     googleMapsApiScriptLoaded= {this.props.googleMapsApiScriptLoaded}
                     handleParkingClick={this.handleParkingClick}
+                    handleParkingBooking={this.props.handleParkingBooking}
                 />
             )
         })
