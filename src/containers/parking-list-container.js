@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {getAjax$} from '../utils/api'
+import {getAjax$, postAjax$} from '../utils/api'
 
 import Navbar from '../components/navbar'
 import ParkingList from '../components/parking/parking-list'
@@ -22,6 +22,8 @@ class ParkingListContainer extends React.Component {
         }
 
       this.handlePolling = this.handlePolling.bind(this)
+      this.handleUserLogin = this.handleUserLogin.bind(this)
+      this.handleUserSignUp = this.handleUserSignUp.bind(this)
       this.handleParkingBooking = this.handleParkingBooking.bind(this)
       this.addGoogleMapsApi = this.addGoogleMapsApi.bind(this)
     }
@@ -57,10 +59,24 @@ class ParkingListContainer extends React.Component {
     }
 
     handleParkingBooking (e) {
+      console.log(e)
       const parkingData = e.currentTarget.dataset.id.split('-')
-      const lotId = parkingData[0]
-      const spaceId = parkingData[1]
-      console.log(parkingData, lotId, spaceId)
+      console.log(parkingData)
+      const lotId = parseInt(parkingData[0])
+      const spaceId = parseInt(parkingData[1])
+      const userId = 54321
+      console.log(parkingData, lotId, spaceId, userId)
+      postAjax$('https://parkingsystem-api.herokuapp.com/api/parking/book', {
+        lotId: lotId,
+        spaceId: spaceId,
+        userId: userId
+      })
+        .then(function(resposnse){
+          console.log(resposnse)
+        })
+        .catch(function(err) {
+          console.log(err)
+        })
     }
 
     handlePolling () {
@@ -100,7 +116,10 @@ class ParkingListContainer extends React.Component {
     render() {
         return (
             <div className="app">
-                <Navbar />
+                <Navbar
+                  handleUserLogin={this.handleUserLogin}
+                  handleUserSignUp = {this.handleUserSignUp}
+                />
                 <div className="app-container" >
                     <div className="greet-user"> Welcome "USER". Below is the list of all the parking lots in your vicinity. Click any one to have a detailed view.</div>
                     <ParkingList

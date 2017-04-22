@@ -5,11 +5,21 @@ var config = {
 };
 
 export function getAjax$(url) {
-    return axios.get(url)
-            .then(({data}) => {
-                return data
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+  return axios.get(url)
+    .then(({data}) => {
+      return data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+export function postAjax$(url, body) {
+  return axios.post(url, body)
+    .then(({data}) => {
+      return data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }

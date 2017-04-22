@@ -54,7 +54,7 @@ function buildSvgLayout (parkingLot, parkingSpaceClick) {
       <g
         className={`${s.status === 'PARKING_FREE' ? 'parking-space-grid' : ''}`}
         data-id={`${parkingLot._id}-${s._id}`}
-        onClick={() => parkingSpaceClick}
+        onClick={parkingSpaceClick}
         key={`${parkingLot._id}-${s._id}`}
       >
         <rect x={s.x} y={s.y} width={s.width} height={s.height} fill="#c3c3c3" stroke="#000000" />
