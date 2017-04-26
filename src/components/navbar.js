@@ -54,10 +54,12 @@ class Navbar extends React.Component {
     return (
       <div className="navbar">
         <div className="navbar-container">
-          <div className="navbar-header">'Parking System Name'</div>
-          <div className="button-group">
-            <Button text="Login" onClick={this.toggleLoginVisible} />
-            <Button text="SignUp" onClick={this.toggleSignUpVisible} />
+          <div className="navbar-header">
+            <div className="title">'Placeholder'</div>
+            <div className="button-group">
+              <Button text="Login" onClick={this.toggleLoginVisible} />
+              <Button text="SignUp" onClick={this.toggleSignUpVisible} />
+            </div>
           </div>
         </div>
       </div>

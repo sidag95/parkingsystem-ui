@@ -69,17 +69,18 @@ class ParkingLotOverview extends React.Component {
     const totalParkings = this.props.lot.spaces.length
 
     return (
-      <div>
+      <div className="parking-lot-overview">
         <Overlay isOpen={this.state.layoutVisible} isClose={!this.state.layoutVisible} >
           <ParkingLotLayout
             parkingLot = {this.props.lot}
             onNavigationClick = {this.handleNavigationClick}
             handleParkingBooking={this.props.handleParkingBooking}
             onClose = {this.toggleLayoutVisible}
+            spinnerVisible={this.props.spinnerVisible}
           />
         </Overlay>
         <div
-          className="pt-card  pt-interactive parking-lot-overview"
+          className="pt-card  pt-interactive"
           data-id={this.props.lot._id}
           onClick={this.toggleLayoutVisible}
         >

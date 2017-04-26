@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from '@blueprintjs/core'
+import {Button, Overlay, Spinner} from '@blueprintjs/core'
 
 function fillColorBasedOnStatus (space) {
   if ((space.status === 'PARKING_OCCUPIED') || (space.status === 'PARKING_OUT_OF_SERVICE')) {
@@ -87,36 +87,49 @@ function buildSvgLayout (parkingLot, parkingSpaceClick) {
   return <g key={parkingLot._id}>{legendLayout}{horizontalLayout}{verticalLayout}<g>CarSvg</g></g>
 }
 
-function ParkingLotLayout ({onNavigationClick, parkingLot, onClose, handleParkingBooking}) {
-  return (
-    <div className="pt-overlay-content">
-      <div className="layout-container">
-        <div id="parking-lot-layout">
-          <div className="layout-header">
-            <div className="title"><span>{parkingLot.name}</span></div>
-            <div className="button-group">
-              <Button
-                text="Navigate"
-                data-id={parkingLot._id}
-                onClick={onNavigationClick}
-              />
-              <Button text="Close" iconName="cross" onClick={onClose} />
-            </div>
+class ParkingLotLayout extends React.Component {
+  render() {
+    if (this.props.spinnerVisible) {
+      return (
+        <div className="pt-overlay-content">
+          <div className="parking-lot-layout-spinner">
+            <Spinner />
           </div>
-          <div className="layout-body">
-            <div id="svg-layout">
-              <svg
-                width={"100%"}
-                height={"100%"}
-              >
-                <rect width="100%" height="100%" fill="white" />
-                {buildSvgLayout(parkingLot, handleParkingBooking)}
-              </svg>
+        </div>
+      )
+    }
+    const {onNavigationClick, parkingLot, onClose, handleParkingBooking} = this.props
+    return (
+      <div className="pt-overlay-content">
+        <div className="layout-container">
+          <div id="parking-lot-layout">
+            <div className="layout-header">
+              <div className="title"><span>{parkingLot.name}</span></div>
+              <div className="button-group">
+                <Button
+                  text="Navigate"
+                  data-id={parkingLot._id}
+                  onClick={onNavigationClick}
+                />
+                <Button text="Close" iconName="cross" onClick={onClose} />
+              </div>
+            </div>
+            <div className="layout-body">
+              <div id="svg-layout">
+                <svg
+                  width={"100%"}
+                  height={"100%"}
+                >
+                  <rect width="100%" height="100%" fill="white" />
+                  {buildSvgLayout(parkingLot, handleParkingBooking)}
+                </svg>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
+
 export default ParkingLotLayout
