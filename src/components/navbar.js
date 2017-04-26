@@ -55,7 +55,7 @@ class Navbar extends React.Component {
       <div className="navbar">
         <div className="navbar-container">
           <div className="navbar-header">
-            <div className="title">'Placeholder'</div>
+            <div className="title">GoPark</div>
             <div className="button-group">
               <Button text="Login" onClick={this.toggleLoginVisible} />
               <Button text="SignUp" onClick={this.toggleSignUpVisible} />
